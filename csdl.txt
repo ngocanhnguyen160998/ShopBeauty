@@ -1,0 +1,178 @@
+DROP DATABASE IF EXISTS java_shop_d;
+
+CREATE DATABASE java_shop_d CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+Use  java_shop_d;
+
+create table ROLE(
+    Id int(11) not null primary key auto_increment,
+    Name varchar(100) not null
+);
+insert into ROLE(Id, Name) VALUES (1,'admin');
+insert into ROLE(Id, Name) VALUES (2,'user');
+
+create table  USER(
+    Id int(11) not null auto_increment primary key,
+    User_Name varchar(100) not null unique,
+    Password varchar(100) not null,
+    Phone varchar(100) not null ,
+    Email varchar(100) not null ,
+    Role_id int,
+    constraint foreign key (Role_id) references role(Id)
+);
+insert into USER(User_Name, Password, Phone, Email, Role_id) values('admin','admin','0914663198','tyhuhu.nguyen@gmail.com',1);
+insert into USER(User_Name, Password, Phone, Email, Role_id) values('user','user','0914663198','tyhuhu.nguyen@gmail.com',2);
+
+create table MENUCON(
+    idMenuCon int(11) not null primary key auto_increment,
+    TenMenuCon nvarchar(20)
+);
+insert into MENUCON(TenMenuCon) VALUES('Lips');
+insert into MENUCON(TenMenuCon) VALUES('Skincare');
+insert into MENUCON(TenMenuCon) VALUES('Makeup');
+insert into MENUCON(TenMenuCon) VALUES('Perfume');
+
+create table SANPHAM(
+    MaSp int(11) not null primary key auto_increment,
+    Ten varchar(100) not null,
+    HinhAnh varchar(100) not null,
+    ThongTinChiTiet varchar(5000),
+    GiaBan int(100),
+    SoLuong int(100),
+    MauSac varchar(100),
+    TrangThai varchar(100) not null,
+    NgayDang date,
+    IdMenuCon int(11),
+    constraint foreign key (IdMenuCon) references MENUCON(IdMenuCon)
+);
+-- Lips
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong,MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Son Bóng Romand Glasting Water Tint 04 Vintage Ocean','/template/web/img/lips/anh1.png','Curél Face Lotion là lotion dưỡng da cấp ẩm dạng nước, thấm nhanh tạo cảm giác mát da và không nhờn rít. Lotion chứa chiết xuất Eucalyptus cấp ẩm thẩm thấu sâu vào trong lớp biểu bì, hỗ trợ tăng cường dưỡng ẩm cho da, giúp da trở nên khỏe, mềm mịn, đồng thời giúp bảo vệ da trước các tác nhân dị ứng bên ngoài.',170000,50,'Nâu đất, Đỏ đất','Còn hàng','2021-01-11',1);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong,MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Son Kem Lì Eglips x Barbie Misty Velvet Tint','/template/web/img/lips/anh2.png','Chất son kem lì mềm mướt không gây khô môi nổi trội, khả năng giữ màu từ 4-5 tiếng trên môi. Độ bám màu trên môi lâu, có trôi đi cũng sẽ giữ lại trên môi một lớp tint màu cực xinh nha.',165000,50,'Nâu đất, Đỏ đất, Đỏ cam','Còn hàng','2021-01-11',1);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong,MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Son Lì Burberry Kisses Velvet Tint','/template/web/img/lips/anh3.png','Với độ dưỡng ẩm cao, chất son satin mịn màng như bơ giúp tăng độ lên màu sẽ mang đến cho bạn đôi môi mềm mại và gợi cảm nhất, bạn sẽ không lo môi bị thâm bị nếp hay màu bị bột nặng môi khắc phục được nhược điểm gây khó chịu của dòng son lì.',700000,50,'Đỏ đất, Đỏ cam','Còn hàng','2021-01-11',1);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong,MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Son kem Romand Milk Tea Velvet Tint','/template/web/img/lips/anh4.png','Chất son xốp mịn và dễ tán, độ lên màu chuẩn, che phủ rãnh môi cực tốt mà không hề gây khô môi. Mùi hương tựa ly trà sữa hương socola ngọt ngào',170000,50,'Đỏ đất, Đỏ cam','Còn hàng','2021-01-11',1);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong,MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Son Kem Lì Merzy The First Velvet Tint','/template/web/img/lips/anh5.png','Sức hút đáng gồm của “cô nàng” Merzy Another me The First Velvet Tint chính là ưu điểm về độ bền màu vượt trội, chất kem mướt mịn khi apply lên môi có mùi thơm nhẹ, đặc biệt lên màu cực chuẩn mà không hề bị biến màu hay lộ rãnh môi.',170000,50,'Đỏ đất, Đỏ cam, Đỏ đô','Còn hàng','2021-01-11',1);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong,MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Son Thỏi Mịn Lì Lâu Trôi Bobbi Brown','/template/web/img/lips/anh6.png','Lớp finish chuẩn mịn lì trên môi, nhưng vẫn mượt mà như nhung. Độ che phủ cao, che phủ được các rãnh môi, vân môi. Công thức dưỡng ẩm vượt trội giúp giữ môi luôn căng mọng & mềm mại, không có cảm giác khô căng khó chịu. Khả năng bền màu lên đến 12 giờ sau khi sử dụng.',910000,50,'Đỏ đất, Đỏ cam, Đỏ đô','Còn hàng','2021-01-11',1);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong,MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Son Kem Bobbi Brown Crushed Liquid Lip','/template/web/img/lips/anh7.png','Chất son Crushed Liquid Lip đáp ứng được cảm giác thoải mái của son dưỡng, độ căng đầy sức sống cho môi & độ pigmented của liquid lipstick. Chiết xuất nam việt quất & quả mâm xôi giàu chất dưỡng, giúp mềm môi đảm bảo cho các sắc tố màu lên môi ngay lập tức.',750000,50,'Đỏ đất, Đỏ đô','Còn hàng','2021-01-11',1);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong,MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Son Dưỡng Có Màu Bobbi Brown','/template/web/img/lips/anh8.png','Son dưỡng có màu. Màu sắc trẻ trung, thời thượng. Công thức dưỡng ẩm và làm mềm sâu. Cải thiện tình trạng khô nứt môi. Thành phần giàu vitamin và dầu dưỡng.',850000,50,'Hồng nhạt','Còn hàng','2021-01-11',1);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong,MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Son Dior Rouge Dior Lip Tattoo Natural Beige','/template/web/img/lips/anh9.png','Giữ mầu son trên môi rất lâu, bền bỉ cả ngày dài. Mang lại đôi môi vô cùng rạng rỡ, quyến rũ và gợi cảm. Màu sắc tuyệt đẹp, quyến rũ, sang trọng, thanh lịch đúng đẳng cấp thời trang mỹ phẩm hàng hiệu.',620000,50,'Đỏ đất','Còn hàng','2021-01-11',1);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong,MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Son Rouge Hermès Satin Lipstick','/template/web/img/lips/anh10.png','Son mềm mượt và vô cùng nhẹ môi, lì nhưng vẫn tạo độ căng mọng và thần thái khó cưỡng cho chủ nhân của nó. Mùi son dễ chịu, dưỡng ẩm cực tốt.',1450000,50,'Đỏ đất, Đỏ cam','Còn hàng','2021-01-11',1);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong,MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Son Dior Addict Lip Tattoo Natural Beige','/template/web/img/lips/anh11.png','Son mang màu cam đất trong veo, điểm thêm chút sắc đỏ trầm rất rất nhẹ chỉ đủ để màu son không nhợt nhạt. Vẫn là màu cam đất nhưng đẹp kiểu mong manh nàng thơ , trong trẻo và cực kì thu hút.',635000,50,'Đỏ đất','Còn hàng','2021-01-11',1);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong,MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Son kem lì bóng Merzy Aurora Dewy Tint','/template/web/img/lips/anh12.png','30% Serum dưỡng ẩm giúp môi căng mọng, giảm thiểu bong tróc. Lớp Squalance Oil bóng hòa cùng lớp tint màu mạnh mẽ tạo ra hiệu ứng ombre “kẹo bọc đường” đẹp mắt. Công thức Aqua Moisture Complex giúp làm mềm và mờ rãnh môi như được phủ một lớp filler.',160000,50,'Đỏ đất','Còn hàng','2021-01-11',1);
+-- Skincare
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Khăn Giấy Tẩy Trang Bioré Marshmallow','/template/web/img/skincare/anh1.png','Sản phẩm được làm 100% từ sợi bông tự nhiên chứa tinh chất dưỡng ẩm Rich Moisture giúp tẩy trang hiệu quả mà vẫn dịu nhẹ, không làm khô da. Giúp lỗ chân lông sạch thoáng khỏi cặn trang điểm và lớp mascara không trôi mà không cần rửa lại với nước hay sữa rửa mặt. Khăn Tẩy Trang Mịn Da Sạch Nhờn Bioré với công thức Sebum Clear giúp hấp thụ dầu thừa và bụi bẩn còn sót lại, mang lại cảm giác tươi mát, thoải mái.',29000,50,'None','Còn hàng','2021-01-11',2);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Bọt Rửa Mặt Bioré Marshmallow','/template/web/img/skincare/anh2.png','Thiết kế dạng chai pump, tạo bọt sẵn, siêu tiện lợi và đảm bảo vệ sinh, chỉ cần nhấn nhẹ là đã có thể dễ dàng lấy sữa rửa mặt ra để sử dụng. Lớp bọt siêu mịn, không chỉ dịu nhẹ với làn da mà còn có khả năng giúp làm sạch sâu nhưng vẫn không mất đi độ ẩm tự nhiên của da. Sử dụng công nghệ SPT đột phá có khả năng hoạt động như nam châm thông minh nhẹ nhàng giúp lấy đi mọi bụi bẩn, bã nhờn ở sâu dưới lỗ chân lông.',184000,50,'None','Còn hàng','2021-01-11',2);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Tẩy Da Chết Huxley Pear Seed Oil','/template/web/img/skincare/anh3.png','Tẩy da chết HUXLEY chiết xuất từ Xương rồng tươi và Dầu xương rồng hữu cơ ép tay (Prickly Pear Seed Oil) 100% giúp da có được độ ẩm tự nhiên căng bóng trong quá trình sử dụng scrub.',315000,50,'None','Còn hàng','2021-01-11',2);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Nước hoa hồng Simple Kind To Skin Soothing Facial Toner','/template/web/img/skincare/anh4.png','100% alcohol free - không chứa cồn. Nước hoa hồng Simple Kind To Skin Soothing Facial Toner là một sản phẩm chăm sóc da đến từ Anh Quốc với dung tích 200ml được đánh giá rất cao 4,5/5* trên trang makeupalley và thường xuyên nằm trong top các sản phẩm drugstore chất lượng, đáng đồng tiền. Thành phần cực kì nhẹ dịu và lành tính, phù hợp với cả làn da nhạy cảm.',170000,50,'None','Còn hàng','2021-01-11',2);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('D Program Sữa Dưỡng Cho Da Khô','/template/web/img/skincare/anh5.png','Cải thiện từ bên trong gốc da. Phục hồi bề mặt da. Hoạt động điều trị da khô và da dị ứng.',890000,50,'None','Còn hàng','2021-01-11',2);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Serum dưỡng chất Loreal Revitalift','/template/web/img/skincare/anh6.png','Giúp nhẹ nhàng lấy đi các bã nhờn và tế bào chết, se khít lỗ chân lông và làm mềm bề mặt da. Ngoài ra, thành phần này còn giúp kháng khuẩn và ngăn ngừa mụn. Giúp loại bỏ các tế bào chết và thúc đẩy quá trình tái tạo da. Làm mềm, dưỡng ẩm và giúp bảo vệ cho da.',99000,50,'None','Còn hàng','2021-01-11',2);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Kem Dưỡng Da Bio-essence Pomegranate','/template/web/img/skincare/anh7.png','Tinh chất tổ yến và collagen nuôi dưỡng làn da mịn màng, tăng độ kết cấu săn chắc cho da giúp da khỏe mạnh, giảm thiểu tình trạng lão hóa. Bổ sung thêm các thành phần thiên nhiên như dầu Pomegranate, dầu Moroccan nut, dầu Camelia & dầu rosehip hỗ trợ da căng mong, tăng tính đàn hồi cho da, giàu dưỡng chất dưỡng ẩm.',410000,50,'None','Còn hàng','2021-01-11',2);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Kem trị mụn Shiseido Pimplit (Tuýt)','/template/web/img/skincare/anh8.png','Kem trị mụn Shiseido Pimplit Nhật #mụn sưng viêm (Tuýp). ĐẶC TRỊ CÁC LOẠI MỤN: Mụn bọc, Mụn sưng tấy, Mụn viêm.',215000,50,'None','Còn hàng','2021-01-11',2);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Gel Dưỡng Ẩm Bioderma Sensibio Eye Contour','/template/web/img/skincare/anh9.png','Giúp cung cấp nước liên tục đến hàng triệu tế bào da ở vùng da mắt. Sensibio eye ngay lập tức làm dịu cảm giác khó chịu và ngứa ở vùng mắt, dành cho những da nhạy cảm  nhất. Một bước đột phá mới của sinh học cho làn da nhạy cảm, các Toléridine được thúc đẩy tự nhiên bằng sáng chế, ức chế sự sản xuất của các phân tử gây viêm và do đó làm cho da ít phản ứng. Caffeine một thành phần được tìm thấy trong decongesting giúp giảm bọng mắt.',340000,50,'None','Còn hàng','2021-01-11',2);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Mặt Nạ Medipeel Herbal Peel Tox','/template/web/img/skincare/anh10.png','Cấp nước, và loại bỏ các tế bào da bị kích ứng. Có hiệu ứng chống oxy hóa. Cải thiện làn da. Kích thích tế bào đổi mới.',320000,50,'None','Còn hàng','2021-01-11',2);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Xịt khoáng dưỡng da Bio Essence','/template/web/img/skincare/anh11.png','Khoáng vi lượng: giúp da tăng cường hoạt động và khỏe mạnh hơn. Vitamin B3, E: cấp ẩm tức thì. Độ pH cân bằng: tăng hiệu quả cấp ẩm & da không khô căng trở lại.',165000,50,'None','Còn hàng','2021-01-11',2);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Xịt Chống Nắng WELLDERMA G Plus','/template/web/img/skincare/anh12.png','Chứa thành phần nhân sâm chiết xuất, dịch lọc lên men tự nhiên Galactomyces giúp cấp ẩm cho da luôn mềm mại ngay cả khi thời tiết khô hanh hay môi trường máy lạnh. Làm dịu, bảo vệ da trước tác động của ánh nắng mặt trời, sau khi wax lông hay cạo râu.',145000,50,'None','Còn hàng','2021-01-11',2);
+-- Makeup
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Kem Lót Bắt Sáng MAC Silverlite','/template/web/img/makeup/anh1.png','Mau khô, thấm nhanh vào da, không tạo cảm giác khó chịu bí bách. Thích hợp với mọi làn da, sản phẩm có thành phần dưỡng giúp cung cấp độ ẩm. Tạo hiệu ứng dewy, căng bóng khoẻ khoắn cho da và trông vô cùng tự nhiên.',990000,50,'None','Còn hàng','2021-01-11',3);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Kem Nền MAC Kiềm Dầu SPF15 Found De Teint','/template/web/img/makeup/anh2.png','Chất kem dễ dàng hòa trộn làm đều màu da với hiệu ứng lì mịn. Độ bám tốt, lâu trôi lên đến 24h, cho bạn vẻ ngoài hoàn hảo suốt cả ngày đêm. Độ che phủ từ trung bình đến cao, giúp che mờ các khuyết điểm và làm mịn lỗ chân lông hiệu quả cho làn da mịn màng.',990000,50,'None','Còn hàng','2021-01-11',3);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Che khuyết điểm dưỡng da Bourjois','/template/web/img/makeup/anh3.png','Tăng cường các Vitamin nuôi dưỡng cho làn da khỏe mạnh, rạng rỡ . Công thức chứa Hyaluronic acid giúp dưỡng ẩm da. Hạt phấn hình cầu thích ứng với cấu tạo da người, giúp che phủ hoàn hảo quầng thâm và các khuyết điểm trên da. Chất kem lỏng dễ tán và dễ dàng kết hợp cùng với các sản phẩm trang điểm khác.',250000,50,'None','Còn hàng','2021-01-11',3);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Phấn Mắt Etude House Play Color Eyes','/template/web/img/makeup/anh4.png','Vỏ hộp được trang trí bằng họa tiết da báo vô cùng bắt mắt mang hơi hướng cổ điển, sang trọng. Sản phẩm có kết cấu phấn mềm mại, không vón cục và lành tính cho vùng da mắt mỏng manh và nhạy cảm. Chất phấn lên màu chuẩn và giữ tone lâu.',240000,50,'None','Còn hàng','2021-01-11',3);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Chì Kẻ Mày 2 Đầu Silkygirl Perfect Brow','/template/web/img/makeup/anh5.png','Đầu chì vặn, không cần chuốt. Chất chì êm như kem . Đầu bột tán với bột phấn kích thước siêu nhỏ, siêu mịn tạo hiệu ứng màu tự nhiên, nét mày đầy đặn. Rất dễ dàng điều khiển và sử dụng. Sản phẩm không mùi hương, không gây kích ứng da. ',159000,50,'None','Còn hàng','2021-01-11',3);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Mascara Silkygirl Double Take Waterproof Duo','/template/web/img/makeup/anh6.png','Chứa các thành phần giàu dưỡng chất có thể dễ dàng hòa quyện vào lông mi, làm đẹp và an toàn cho đôi mắt. Mascara làm dài và cong mi ngay lập tức, hiệu quả như ý. Làm dày, dài mi đồng thời uốn cong mi mà không gây vón cục.',228000,50,'None','Còn hàng','2021-01-11',3);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Kẻ Mắt Nước Silkygirl Perfect Sharp Matte','/template/web/img/makeup/anh7.png','Kẻ Mắt Nước Chống Lem, Chống Thấm Nước SILKYGIRL với công thức gốc nước (water-based) nhanh khô, với đầu bút dễ kẻ, dễ kiểm soát. Nét vẽ nhanh chóng khô lại chỉ trong vài giây và tạo nên hiệu ứng siêu lì chuẩn màu sắc, không gây nên tình trạng trôi, lem khi nhắm hoặc chớp mắt.',174000,50,'None','Còn hàng','2021-01-11',3);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Phấn Phủ Dạng Nén EGLIPS Barbie','/template/web/img/makeup/anh8.png','Công thức phủ Lecithin nén chặt có độ bám dính tốt, làm giảm độ bóng dầu trên da. Hiệu ứng blur lasting giúp lớp trang điểm bền màu, lâu trôi, làn da trong suốt, mờ lỳ tự nhiên. Các hạt bột mịn giúp che phủ lỗ chân lông tốt, tạo lớp nền mềm mại, mịn màng.',175000,50,'None','Còn hàng','2021-01-11',3);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Phấn Nước Silkygirl Magic BB Cushion','/template/web/img/makeup/anh9.png','Chống oxy hóa mạnh mẽ ngăn ngừa lão hóa da. Tạo lớp nền mỏng mịn rạng rỡ, đầy tự nhiên. Cấp ẩm cho da suốt cả ngày dài.',298000,50,'None','Còn hàng','2021-01-11',3);
+-- Perfume
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Xịt thơm body Victorias secret','/template/web/img/perfume/anh1.png','Mỗi sản phẩm làm đẹp của Victoria’s Secret là một bản hòa tấu ngọt ngào của hương thơm và tính cách làm siêu lòng hầu hết phụ nữ trên toàn thế giới. Xịt thơm toàn thân body fragrance mist Victoria’s Secret với hương thơm đa dạng, mang đến vẻ ngọt ngào, sexy lôi cuốn cho phái đẹp.',270000,50,'None','Còn hàng','2021-01-11',4);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Nước Hoa Gucci Bloom Acqua di Fiori','/template/web/img/perfume/anh2.png','Hương đầu: lá nhựa galbanum, lá cây lý chua Hương giữa: hoa nhài, hoa huệ, hoa kim ngân. Hương cuối: Xạ hương, gỗ đàn hương.',2490000,50,'None','Còn hàng','2021-01-11',4);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Nước Hoa Gucci Guilty Absolute Pour Homme','/template/web/img/perfume/anh3.png','Phong cách: Mạnh mẽ, nam tính Hương đầu: Da thuộc Hương giữa: Cây hoắc hương, cây bách Hương cuối: Hương gỗ, cỏ hương bài.',2280000,50,'None','Còn hàng','2021-01-11',4);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Nước Hoa Chloe Leau 30 ml','/template/web/img/perfume/anh4.png','Hương đầu: Hoa mẫu đơn, Hoa lan Nam Phi, Quả vải. Hương giữa: Hoa hồng, Hoa linh lan thung lũng, Hoa mộc lan. Hương cuối: Hổ phách, Gỗ tuyết tùng Virginia.',1920000,50,'None','Còn hàng','2021-01-11',4);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon)
+values ('Nước hoa MKWL SUBLIME EDP','/template/web/img/perfume/anh5.png','Nhóm hương: Hương Hoa cỏ Phương đông - Oriental Floral. Nồng độ lưu hương: Eau de parfum (EDP). Phong cách: Năng động, gợi cảm, cuốn hút. Mùi hương lấy cảm hứng từ một buổi chiều ngập nắng vàng rực rỡ.',2850000,50,'None','Còn hàng','2021-01-11',4);
+insert into SANPHAM(Ten, HinhAnh, ThongTinChiTiet, GiaBan, SoLuong, MauSac, TrangThai,NgayDang, IdMenuCon )
+values ('Nước hoa MJ DAISY MARC JACOSS EDP','/template/web/img/perfume/anh6.png','Parfum là sản phẩm nước hoa cao cấp dành cho phái nữ của thương hiệu Marc Jacobs và đã được ra đời vào năm 2008 bởi bàn tay điều chế tài ba của Alberto Morillas.',2650000,50,'None','Còn hàng','2021-01-11',4);
+
+create table DANHSACHYEUTHICH(
+    id_gioHang int(11) auto_increment,
+    maSp int(11) not null,
+    soLuongBan int(100),
+    id int(11),
+    constraint primary key (id_gioHang , maSp),
+    constraint foreign key (id)   references user(id),
+    constraint foreign key (maSp) references SanPham(maSp)
+);
+
+create table GIOHANG(
+    id_mycart int(10) auto_increment,
+    maSp int(11) not null,
+    soLuongMua int(11),
+    id_user int(11),
+    tongtien int(11),
+    tinhTrang int(11),
+    constraint primary key (id_mycart, maSp),
+    constraint foreign key (id_user) references user(id),
+    constraint foreign key (maSp) references sanpham(maSp)
+);
+
+create table DONHANG(
+    id_DH int(100) not null primary key auto_increment,
+    FirstName varchar(100),
+    LastName varchar(100),
+    CompanyName varchar(100),
+    Email varchar(100),
+    Phone varchar(100),
+    Address varchar(100),
+    Province varchar(100),
+    District varchar(100),
+    Apartment varchar(100),
+    Commune varchar(100),
+    PostCode varchar(100),
+    SpecialNotes varchar(100),
+    Modefied_Date date,
+    TongTien int,
+    PaymentMethod varchar(20),
+    id_user int(100),
+    ListProduct varchar(1000),
+    constraint foreign key (id_user) references user(id)
+);
+
+create table EmailSubsribe(
+    Id_Email int(10) auto_increment primary key,
+    Email varchar (1000),
+    CreatedDate date
+);
